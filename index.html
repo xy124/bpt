@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Body Part Twister</title>
+  </head>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="shake.js/shake.js"></script>
+
+  <script src="app.js"></script>
+<body onload="onload()">
+
+
+<button onclick="toggle_settings()">toggle settings [t]</button>
+<div id="settings">
+  Players:
+  <table id="players">
+ </table>
+ <ul>
+    <li>
+      New Player Name:<input type="text" id="new_player_name" />
+      <button onclick="add_player()">add</button>
+    </li>
+ </ul>
+</div>
+
+<div id="game">
+<div id="sentence"><br></div>
+<br>
+<button onclick="refresh_sentence()">next round [space / shake your phone]</button>
+</div>
+
+</body>
+</html>
+
+
