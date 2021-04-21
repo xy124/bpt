@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Body Part Twister</title>
   </head>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="shake.js/shake.js"></script>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="app.js"></script>
-<body onload="onload()">
+  <body>
 
 
-<button onclick="toggle_settings()">toggle settings [t]</button>
-<div id="settings">
-  Players:
-  <table id="players">
- </table>
- <ul>
-    <li>
-      New Player Name:<input type="text" id="new_player_name" />
-      <button onclick="add_player()">add</button>
-    </li>
- </ul>
-</div>
+    <button onclick="toggle_settings()">toggle settings [t]</button>
+    <div id="settings">
+      Players:
+      <table id="players">
+      </table>
+      <ul>
+        <li>
+          New Player Name:<input type="text" id="new_player_name" />
+          <button onclick="add_player()">add</button>
+        </li>
+      </ul>
+    </div>
 
-<div id="game">
-<div id="sentence"><br></div>
-<br>
-<button onclick="refresh_sentence()">next round [space / shake your phone]</button>
-</div>
+    <div id="game">
+      <div id="sentence"><br></div>
+      <br>
+      <button onclick="refresh_sentence()">next round [space / shake your phone]</button>
+    </div>
 
-</body>
+  </body>
 </html>
 
 

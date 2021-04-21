@@ -35,7 +35,6 @@ function add_player() {
 
 
 function remove_player(name) {
-    console.log('asdf');
     var i = players.indexOf(name);
     if (i != -1) {
         players.splice(i, 1);
@@ -43,39 +42,6 @@ function remove_player(name) {
 
     refresh_settings_view();
 }
-
-function onload() {
-    $("#game").hide();
-    console.log('adsf');
-
-    refresh_settings_view();
-
-    $("#new_player_name").keyup(function(evt) {
-        if (evt.key == 'Enter') {
-            add_player();
-        }
-    });
-    $(document).keyup(function(evt) {
-        if (evt.key == ' ') {
-            refresh_sentence();
-        } else if (evt.key == 't') {
-            toggle_settings();
-        }
-    });
-
-
-    window.addEventListener('shake', function() {
-        console.log("Shake event!");
-        new_round();
-    }, false);
-
-}
-
-function choice(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-}
-
-
 
 function new_round() {
     if (players.length < 2) {
@@ -96,6 +62,44 @@ function new_round() {
     return sentence;
 
 }
+
+window.onload = function () {
+    $("#game").hide();
+
+    refresh_settings_view();
+
+    $("#new_player_name").keyup(function(evt) {
+        if (evt.key == 'Enter') {
+            add_player();
+        }
+    });
+    $(document).keyup(function(evt) {
+        if (evt.key == ' ') {
+            refresh_sentence();
+        } else if (evt.key == 't') {
+            toggle_settings();
+        }
+    });
+
+    var myShakeEvent = new Shake({
+        threshold: 15, // optional shake strength threshold
+        timeout: 500 // optional, determines the frequency of event generation
+    });
+
+    myShakeEvent.start();  // start listening for shake event...
+
+    window.addEventListener('shake', function() {
+        console.log("Shake event!");
+        refresh_sentence();
+    }, false);
+}
+
+function choice(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+
+
 
 function toggle_settings() {
     $("#settings").toggle();
