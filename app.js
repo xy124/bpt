@@ -93,8 +93,9 @@ window.onload = function () {
         refresh_sentence();
     }, false);
 
-    if (!'speechSynthesis' in window) {
+    if (! window.speechSynthesis) {
         $("#has_audio_output_div").prop('checked', false);
+        $("#has_audio_output_div").css("display", "none");
         $("#has_audio_output_div").hide();
     }
 }
@@ -120,7 +121,7 @@ function toggle_settings() {
 
 function toggle_auto_mode() {
     if (interval === -1) {
-        interval = setInterval(refresh_sentence, 1000);
+        interval = setInterval(refresh_sentence, 10000);
     } else {
         clearInterval(interval);
         interval = -1;
