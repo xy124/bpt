@@ -43,7 +43,7 @@ function remove_player(name) {
     refresh_settings_view();
 }
 
-function new_round() {
+function get_new_sentence() {
     if (players.length < 2) {
         alert("Add more players to play!");
         return;
@@ -92,23 +92,50 @@ window.onload = function () {
         console.log("Shake event!");
         refresh_sentence();
     }, false);
+
+    if (!'speechSynthesis' in window) {
+        $("#has_audio_output_div").prop('checked', false);
+        $("#has_audio_output_div").hide();
+    }
 }
 
 function choice(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
-
-
-
+var has_settings = true;
+var interval = -1;
 function toggle_settings() {
+    has_settings = !has_settings;
+
+    if (has_settings && interval != -1) {
+        // deactivate automode
+        $("#has_auto_mode").prop("checked", false);
+        toggle_auto_mode();
+    }
+
     $("#settings").toggle();
     $("#game").toggle();
 }
 
-function refresh_sentence() {
-    if (!$('#settings').is(":visible")) {
-        $('#sentence').text(new_round());
+function toggle_auto_mode() {
+    if (interval === -1) {
+        interval = setInterval(refresh_sentence, 1000);
+    } else {
+        clearInterval(interval);
+        interval = -1;
     }
 }
 
+function refresh_sentence() {
+    if (!$('#settings').is(":visible")) {
+        var new_sentence = get_new_sentence();
+        if ($("#has_audio_output").prop("checked")) {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = new_sentence;
+            window.speechSynthesis.speak(msg);
+        }
+        $('#sentence').text(new_sentence);
+
+    }
+}

@@ -12,7 +12,6 @@
   <script src="app.js"></script>
   <body>
 
-
     <button onclick="toggle_settings()">toggle settings [t]</button>
     <div id="settings">
       Players:
@@ -24,12 +23,17 @@
           <button onclick="add_player()">add</button>
         </li>
       </ul>
+      <div id="has_audio_output_div">
+        <input type="checkbox" id="has_audio_output"> Activate audio output
+      </div>
     </div>
 
     <div id="game">
       <div id="sentence"><br></div>
       <br>
       <button onclick="refresh_sentence()">next round [space / shake your phone]</button>
+      <br>
+      <input type="checkbox" id="has_auto_mode" onchange="toggle_auto_mode()"> auto mode
     </div>
 
   </body>
