@@ -30,6 +30,8 @@ function add_player() {
 
     $("#new_player_name").focus();
 
+    store_to_cookie();
+
 }
 
 
@@ -66,6 +68,7 @@ function get_new_sentence() {
 window.onload = function () {
     $("#game").hide();
 
+    load_from_cookie();
     refresh_settings_view();
 
     $("#new_player_name").keyup(function(evt) {
@@ -104,10 +107,34 @@ function choice(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function load_from_cookie() {
+    var m = {};
+    try {
+        m = JSON.parse(document.cookie.split("; ")[1]);
+    } catch (e) {};
+    console.log('m', m);
+    if (m.players === undefined || m.players.length < 1)
+    {
+        console.log('Cannot restore settings from cookies');
+        return;
+    }
+    console.log('Restoring settings from cookies');
+    players = m.players;
+}
+
+function store_to_cookie() {
+    console.log('store settings to cookie');
+    document.cookie = JSON.stringify({'players': players});
+}
+
 var has_settings = true;
 var interval = -1;
 function toggle_settings() {
     has_settings = !has_settings;
+
+    if (!has_settings) {
+        store_to_cookie();
+    }
 
     if (has_settings && interval != -1) {
         // deactivate automode
