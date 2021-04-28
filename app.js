@@ -2,8 +2,22 @@ var players = [
 'Alice', 'Bob'  // TODO: set assert (no name twice!
 ];
 
-var body_parts = ['fuss','hand','kopf','bauch'];
-
+var body_parts = [
+    'left foot',
+    'right foot',
+    'left hand',
+    'right hand',
+    'left ellbow',
+    'right elbow',
+    'left knee',
+    'right knee',
+    'left ear',
+    'right ear',
+    'nose',
+    'chin',
+    'left heel',
+    'right heel',
+];
 
 function refresh_settings_view () {
     var str = "";
