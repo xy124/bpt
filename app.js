@@ -1,6 +1,8 @@
 var players = [
-'Alice', 'Bob'  // TODO: set assert (no name twice!
+'Alice', 'Bob', 'Klaus', 'Tom', 'Tim'  // TODO: set assert (no name twice!
 ];
+
+var participating_players = [];
 
 var body_parts = [
     'left foot',
@@ -24,7 +26,10 @@ function refresh_settings_view () {
     players.forEach(function(it) {
         str += "<tr><td>"+it+" </td><td><button onclick='remove_player(\""+it+"\")'>X</button></td></tr>";
     });
-   $("#players").html(str);
+
+    $("#players").html(str);
+
+    participating_players = [];
 }
 
 
@@ -71,10 +76,30 @@ function get_new_sentence() {
     other_players.splice(players.indexOf(player1), 1);
     var player2 = choice(other_players);
 
+    if ((participating_players.length !== players.length) &&
+        (participating_players.indexOf(player1) !== -1)) {
+        // Not all players are participating yet and also player1 is no new player.
+        // So lets ensure that at least player 2 is a new player
+        while (participating_players.indexOf(player2) !== -1) {
+            player2 = choice(other_players);
+        }
+    }
+
     var body_part1 = choice(body_parts);
     var body_part2 = choice(body_parts);
 
+
+    // store players to participating
+    if (participating_players.indexOf(player1) === -1) {
+        participating_players.push(player1);
+    }
+
+    if (participating_players.indexOf(player2) === -1) {
+        participating_players.push(player2);
+    }
+
     var sentence = player1 + " puts the "+ body_part1 + " on "+player2+"'s " + body_part2;
+    console.log('Sentence: '+ sentence);
     return sentence;
 
 }
